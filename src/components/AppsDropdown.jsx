@@ -12,7 +12,7 @@ const AppsDropdown = ({onItemClick}) => {
         console.log(`Clicked: ${linkName}`);
       };
   return (
-    <div className='z-[100] absolute top-[80px] right-[15%] w-[25vw] h-auto bg-white shadow-md mt-1 mr-4 rounded-[10px] flex flex-col items-start gap-3 px-3 py-6'>
+    <div className='z-[100] absolute top-[70px] right-[15%] w-[25vw] h-auto bg-white shadow-md mt-1 mr-4 rounded-[10px] flex flex-col items-start gap-3 px-3 py-6'>
     {
         sideLinks.map((link) => (
             <button key={link.name}  onClick={() => handleClick(link.name)} className='flex justify-between  p-2 hover:shadow-md hover:rounded-[12px] rounded-full cursor-pointer group w-full'>

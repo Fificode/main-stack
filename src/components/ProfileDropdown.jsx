@@ -39,7 +39,7 @@ icon: <PiSignOutLight className='w-5 h-5 text-primary'/>,
 },
     ]; 
   return (
-    <div className='z-[100] w-[23vw] h-auto bg-white shadow-md absolute right-0 mt-1 mr-4 rounded-[10px] flex flex-col items-start px-6'>
+    <div className='z-[100] w-[23vw] h-auto bg-white shadow-md absolute top-[70px] right-0 mr-4 rounded-[10px] flex flex-col items-start px-6'>
     <div className='flex gap-2 items-center pt-6 pb-3'>
       <Avatar firstName="Olivier" lastName="Jones"  width = "w-[40px]"
       height = "h-[40px]"/>

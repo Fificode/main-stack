@@ -10,7 +10,7 @@ function App() {
 
 
   return (
-    <>
+    <div>
      <Navbar/>
      <Sidebar/>
      <Routes>
@@ -19,7 +19,7 @@ function App() {
      <Route path="/analytics" element={<Analytics/>}/>
      <Route path="/CRM" element={<CRM/>}/>
      </Routes>
-    </>
+    </div>
   )
 }
 

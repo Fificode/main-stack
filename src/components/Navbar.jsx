@@ -83,8 +83,8 @@ const Navbar = () => {
   };
 
   return (
-    <div className='m-4'>
-    <div className='w-full bg-white h-[64px] shadow-md border-none rounded-[100px] flex justify-between items-center p-[12px] relative'>
+    <div className='flex justify-center items-center max-w-full'>
+    <div className='w-full z-[1000] fixed top-0 right-0  bg-white h-[64px] border border-red-600 shadow-md border-none rounded-[100px] flex justify-between items-center pt-[28px] pb-[18px] px-[12px]'>
 
   <img src={mainstack} alt='Mainstack Logo' className='w-[36px] h-[36px]'/>
 
