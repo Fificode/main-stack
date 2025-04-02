@@ -16,9 +16,14 @@ sideLinks.slice(0, -1).map((link) => (
           ) : (
             <img src={link.image} alt={`${link.name} Icon`} className="grayscale transition-all duration-300 group-hover:grayscale-0" />
           )}
-        <span className="absolute left-12 top-0 bg-primary shadow-md px-2 py-1 rounded-md text-sm font-medium text-nowrap text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        {/* <span className="absolute left-12 top-0 bg-primary shadow-md px-2 py-1 rounded-md text-sm font-medium text-nowrap text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             {link.name}
-          </span>
+          </span> */}
+          <div class="absolute left-12 top-0 bg-primary shadow-md px-2 py-1 rounded-md text-sm font-medium text-nowrap text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+  <span>{link.name}</span>
+  <div class="absolute left-0 top-1/2 -translate-x-full -translate-y-1/2 border-8 border-transparent border-r-primary"></div>
+</div>
+
     </button>
 ))
     }
