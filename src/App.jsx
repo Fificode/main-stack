@@ -4,6 +4,7 @@ import Home from "./pages/Home"
 import Revenue from "./pages/Revenue"
 import Analytics from "./pages/Analytics"
 import CRM from "./pages/CRM"
+import Sidebar from "./components/Sidebar"
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
   return (
     <>
      <Navbar/>
+     <Sidebar/>
      <Routes>
      <Route path="/" element={<Home/>}/>
      <Route path="/revenue" element={<Revenue/>}/>

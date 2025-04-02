@@ -125,7 +125,7 @@
 @layer base {
  
   body {
-    @apply bg-white font-poppins;
+    @apply bg-white font-poppins max-w-full;
   }
 }
 

@@ -9,11 +9,16 @@ import { MdOutlineChat } from "react-icons/md";
 import { IoMenuOutline } from "react-icons/io5";
 import Avatar from './Avatar';
 import { GoHomeFill } from "react-icons/go";
+import ProfileDropdown from './ProfileDropdown';
+import AppsDropdown from './AppsDropdown';
+import { IoIosArrowDown } from "react-icons/io";
 
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [appModalOpen, setAppModalOpen] = useState(false);
+  const [appsDropdownOpen, setAppsDropdownOpen] = useState(false);
+  const [activeAppName, setActiveAppName] = useState(null);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const navLinks = [
     {
       id: 1,
@@ -55,28 +60,50 @@ const Navbar = () => {
 
   const handleNavigation = (nav) => {
     if (nav.modal) {
-      setAppModalOpen(!appModalOpen);
+      setProfileDropdownOpen(false);
+      setAppsDropdownOpen(!appsDropdownOpen);
+      if (!appsDropdownOpen) {
+        setActiveAppName(nav.name);
+      } else {
+        setActiveAppName(null);
+      }
     } else {
-      setAppModalOpen(false);
+      setAppsDropdownOpen(false);
+      setActiveAppName(null);
       navigate(nav.path);
     }
   };
+  const handleProfileDropdown =() => {
+    setAppsDropdownOpen(false);
+    setProfileDropdownOpen(!profileDropdownOpen)
+  }
+  const handleAppItemClick = (appName) => {
+    setActiveAppName(appName);
+    // setAppsDropdownOpen(false); 
+  };
+
   return (
     <div className='m-4'>
-    <div className='w-full bg-white h-[64px] shadow-md border-none rounded-[100px] flex justify-between items-center p-[12px]'>
+    <div className='w-full bg-white h-[64px] shadow-md border-none rounded-[100px] flex justify-between items-center p-[12px] relative'>
 
   <img src={mainstack} alt='Mainstack Logo' className='w-[36px] h-[36px]'/>
 
 <div className='flex items-center justify-center gap-[20px]'>
 {
   navLinks.map((nav) =>{
-    const isActive = location.pathname === nav.path || (nav.modal && appModalOpen);
+    const isActive = location.pathname === nav.path || (nav.modal && appsDropdownOpen);
     return(
-    <button key={nav.id}  onClick={() => handleNavigation(nav)} className={`flex gap-[4px] items-center h-[40px] rounded-[100px] py-[8px] px-4 cursor-pointer transition-all ${
-                  isActive ? "bg-primary text-white" : "text-secondary"
+    <button key={nav.id}  onClick={() => handleNavigation(nav)} className={`flex gap-[4px] items-center h-[40px] rounded-[100px] py-[8px] px-4 cursor-pointer transition-all  ${
+                  isActive ? "bg-primary text-white" : "text-secondary hover:bg-[#EFF1F6]"
                 }`}>
  {isActive ? nav.activeIcon : nav.inActiveIcon}
-<h2 className='font-[600] text-[16px] leading-[24px]'>{nav.name}</h2>
+<h2 className='font-[600] text-[16px] leading-[24px] flex items-center'>{nav.name}
+{nav.modal && appsDropdownOpen && activeAppName !== 'Apps' && (
+           <div className='flex gap-2 items-center ml-3'><div class="border-l-1 border-secondary h-10 "></div> <span className="ml-1 text-[12px] font-normal">{activeAppName}</span>
+           <IoIosArrowDown className='text-white w-4 h-4'/>
+           </div>
+          )}
+</h2>
     </button>
   )})
 }
@@ -84,20 +111,20 @@ const Navbar = () => {
 <div className='flex gap-[20px] items-center'>
 <button className='cursor-pointer'><CgBell className='text-secondary w-5 h-5'/></button>
 <button className='cursor-pointer'><MdOutlineChat className='text-secondary w-5 h-5'/></button>
-<button className='cursor-pointer flex gap-2 items-center bg-[#EFF1F6] border-0 rounded-[100px] py-[4px] pl-[5px] pr-[12px]'>
+<button onClick={handleProfileDropdown} className='cursor-pointer flex gap-2 items-center bg-[#EFF1F6] border-0 rounded-[100px] py-[4px] pl-[5px] pr-[12px]'>
 <Avatar firstName="Olivier" lastName="Jones"/>
 <IoMenuOutline className='text-secondary w-6 h-6' />
 </button>
 </div>
     </div>
-    {appModalOpen && (
-      <div>
-      Apps modal
-      <button onClick={() => setAppModalOpen(false)} className="mt-4 px-4 py-2 bg-primary text-white rounded">
-              Close
-            </button>
-      </div>
+    {appsDropdownOpen && (
+      <AppsDropdown onItemClick={handleAppItemClick}/>
     )}
+    {
+      profileDropdownOpen && (
+       <ProfileDropdown/>
+      )
+    }
     </div>
   )
 }
