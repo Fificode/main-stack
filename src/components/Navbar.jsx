@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import mainstack from "../assets/mainstack-logo.svg"
 import { GoHome } from "react-icons/go";
 import { Icon } from "@iconify/react";
-import { GrAppsRounded } from "react-icons/gr";
 import { CgBell } from "react-icons/cg";
 import { MdOutlineChat } from "react-icons/md";
 import { IoMenuOutline } from "react-icons/io5";
@@ -12,13 +11,19 @@ import { GoHomeFill } from "react-icons/go";
 import ProfileDropdown from './ProfileDropdown';
 import AppsDropdown from './AppsDropdown';
 import { IoIosArrowDown } from "react-icons/io";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUser } from '../store/userSlice';
 
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
   const [appsDropdownOpen, setAppsDropdownOpen] = useState(false);
   const [activeAppName, setActiveAppName] = useState(null);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, right: 0 });
+  const appsButtonRef = useRef(null);
   const navLinks = [
     {
       id: 1,
@@ -63,6 +68,10 @@ const Navbar = () => {
       setProfileDropdownOpen(false);
       setAppsDropdownOpen(!appsDropdownOpen);
       if (!appsDropdownOpen) {
+        const rect = appsButtonRef.current.getBoundingClientRect();
+        console.log("Rect", rect);
+        const rightOffset = window.innerWidth - rect.right - 200;
+    setDropdownPosition({ top: rect.bottom  , right: rightOffset  });
         setActiveAppName(nav.name);
       } else {
         setActiveAppName(null);
@@ -82,8 +91,11 @@ const Navbar = () => {
     // setAppsDropdownOpen(false); 
   };
 
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
   return (
-    <div className='flex justify-center items-center max-w-full'>
+    <div className='flex justify-center items-center max-w-full relative'>
     <div className='w-full z-[1000] fixed top-0 right-0  bg-white h-[64px] border border-red-600 shadow-md border-none rounded-[100px] flex justify-between items-center pt-[28px] pb-[18px] px-[12px]'>
 
   <img src={mainstack} alt='Mainstack Logo' className='w-[36px] h-[36px]'/>
@@ -93,7 +105,7 @@ const Navbar = () => {
   navLinks.map((nav) =>{
     const isActive = location.pathname === nav.path || (nav.modal && appsDropdownOpen);
     return(
-    <button key={nav.id}  onClick={() => handleNavigation(nav)} className={`flex gap-[4px] items-center h-[40px] rounded-[100px] py-[8px] px-4 cursor-pointer transition-all  ${
+    <div ref={nav.modal ? appsButtonRef : null} key={nav.id}  onClick={() => handleNavigation(nav)} className={`flex gap-[4px] items-center h-[40px] rounded-[100px] py-[8px] px-4 cursor-pointer transition-all  ${
                   isActive ? "bg-primary text-white" : "text-secondary hover:bg-[#EFF1F6]"
                 }`}>
  {isActive ? nav.activeIcon : nav.inActiveIcon}
@@ -104,7 +116,7 @@ const Navbar = () => {
            </div>
           )}
 </h2>
-    </button>
+    </div>
   )})
 }
 </div>
@@ -112,17 +124,23 @@ const Navbar = () => {
 <button className='cursor-pointer'><CgBell className='text-secondary w-5 h-5'/></button>
 <button className='cursor-pointer'><MdOutlineChat className='text-secondary w-5 h-5'/></button>
 <button onClick={handleProfileDropdown} className='cursor-pointer flex gap-2 items-center bg-[#EFF1F6] border-0 rounded-[100px] py-[4px] pl-[5px] pr-[12px]'>
-<Avatar firstName="Olivier" lastName="Jones"/>
+<Avatar firstName={user?.first_name} lastName={user?.last_name}/>
 <IoMenuOutline className='text-secondary w-6 h-6' />
 </button>
 </div>
     </div>
     {appsDropdownOpen && (
-      <AppsDropdown onItemClick={handleAppItemClick}/>
+      <div className='fixed'  style={{
+      top: `${dropdownPosition.top}px`, // Use dynamic position
+      right: `${dropdownPosition.right}px`}}>
+      <AppsDropdown onItemClick={handleAppItemClick} position={dropdownPosition}/>
+      </div>
     )}
     {
       profileDropdownOpen && (
+        <div className='fixed top-[70px] right-0'>
        <ProfileDropdown/>
+       </div>
       )
     }
     </div>

@@ -12,10 +12,11 @@ const AppsDropdown = ({onItemClick}) => {
         console.log(`Clicked: ${linkName}`);
       };
   return (
-    <div className='z-[100] absolute top-[70px] right-[15%] w-[25vw] h-auto bg-white shadow-md mt-1 mr-4 rounded-[10px] flex flex-col items-start gap-3 px-3 py-6'>
+    <div  
+     className='z-[1000] w-[25vw] h-auto bg-white shadow-md mt-1 mr-4 rounded-[10px] flex flex-col items-start gap-3 px-3 py-6'>
     {
         sideLinks.map((link) => (
-            <button key={link.name}  onClick={() => handleClick(link.name)} className='flex justify-between  p-2 hover:shadow-md hover:rounded-[12px] rounded-full cursor-pointer group w-full'>
+            <div key={link.name}  onClick={() => handleClick(link.name)} className='flex justify-between  p-2 hover:shadow-md hover:rounded-[12px] rounded-full cursor-pointer group w-full'>
             <div className='flex gap-3 items-center'>
             <div className='w-10 h-10 flex justify-center items-center shadow-sm rounded-[12px]'>
     {link.icon ? (
@@ -32,7 +33,7 @@ const AppsDropdown = ({onItemClick}) => {
           </div>
           </div>
           <button className='opacity-0 transition-opacity duration-300 group-hover:opacity-100'><IoIosArrowForward className='text-secondary w-4 h-4'/></button>
-          </button>
+          </div>
         ))
     }
    
