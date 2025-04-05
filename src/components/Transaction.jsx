@@ -24,8 +24,8 @@ const [filterModalOpen, setFilterModalOpen] = useState(false);
 <p className='font-[500] text-[14px] leading-[16px] text-secondary'>Your transactions for the last 7 days</p>
         </div>
         <div className='flex gap-[12px] items-center'>
-<button onClick={() => setFilterModalOpen(true)} className='flex justify-center items-center gap-[8px] bg-[#EFF1F6] rounded-[100px] w-auto h-[48px] py-[12px] px-[20px] font-[600] text-[16px] leading-[24px] text-primary cursor-pointer'>Filter <IoIosArrowDown className='w-3 h-3 text-primary'/> </button>
-<button className='flex justify-center items-center gap-[8px] bg-[#EFF1F6] rounded-[100px] w-auto h-[48px] py-[12px] px-[20px] font-[600] text-[16px] leading-[24px] text-primary cursor-pointer'>Export list<BsDownload className='w-3 h-3 text-primary'/></button>
+<button onClick={() => setFilterModalOpen(true)} className='flex justify-center items-center gap-[8px] bg-[#EFF1F6] rounded-[100px] w-auto h-[48px] py-[12px] px-[20px] font-[600] text-[16px] leading-[24px] text-primary cursor-pointer'>Filter <IoIosArrowDown className='w-5 h-5 text-primary'/> </button>
+<button className='flex justify-center items-center gap-[8px] bg-[#EFF1F6] rounded-[100px] w-auto h-[48px] py-[12px] px-[20px] font-[600] text-[16px] leading-[24px] text-primary cursor-pointer'>Export list<BsDownload className='w-5 h-5 text-primary'/></button>
         </div>
     </div>
     <div className='border-b border-[#EFF1F6] mt-6 mb-[33px] w-full'></div>
