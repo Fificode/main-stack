@@ -26,10 +26,10 @@ const chartConfig = {
   },
 } 
 
-export function Component() {
+export function Component({filteredTransactions}) {
   const dispatch = useDispatch();
       const { wallet, loading, error } = useSelector((state) => state.wallet);
-      const { transactions} = useSelector((state) => state.transaction);
+      // const { transactions} = useSelector((state) => state.transaction);
 
       useEffect(() => {
         dispatch(fetchWallet());
@@ -47,14 +47,36 @@ export function Component() {
 };
 
         // Transform transactions into chart format
-  const chartData = useMemo(() => {
-    return transactions.map((transaction) => ({
-      date: formatDate(transaction.date),
-      // date: transaction?.date, 
-      amount: transaction?.amount
-    }));
-  }, [transactions]);
+  // const chartData = useMemo(() => {
+  //   return filteredTransactions.map((transaction) => ({
+  //     date: formatDate(transaction.date),
+  //     amount: transaction?.amount
+  //   }));
+  // }, [filteredTransactions]);
 
+  const chartData = useMemo(() => {
+    if (!filteredTransactions || filteredTransactions.length === 0) {
+      // No filtered transactions, display a red horizontal line in the middle
+      const todayInLagos = new Date();
+      const middleValue = 50; // Replace with your desired middle value
+
+      // Create two points for the horizontal line spanning a short period
+      const startDate = new Date(todayInLagos);
+      const endDate = new Date(todayInLagos);
+      endDate.setDate(todayInLagos.getDate() + 3); // Add one day
+
+      return [
+        { date: formatDate(startDate), amount: middleValue },
+        { date: formatDate(endDate), amount: middleValue },
+      ];
+    }
+
+    // Transform transactions into chart format
+    return filteredTransactions.map((transaction) => ({
+      date: formatDate(transaction.date),
+      amount: transaction?.amount,
+    }));
+  }, [filteredTransactions]);
    
       if (error) return <p>Error: {error}</p>;
     
@@ -95,7 +117,7 @@ export function Component() {
             />
             <Area
               dataKey="amount"
-              type="natural"
+              type="linear"
               fill="transparent"
               // fillOpacity={0.4}
               stroke="#FF5403"

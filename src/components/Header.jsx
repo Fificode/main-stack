@@ -2,10 +2,10 @@ import React from 'react'
 import RevenueSummary from './RevenueSummary'
 import {Component as AreaChart} from './AreaChart'
 
-const Header = () => {
+const Header = ({filteredTransactions}) => {
   return (
     <div className='flex gap-4 w-full'>
-    <AreaChart/>
+    <AreaChart filteredTransactions={filteredTransactions}/>
         <RevenueSummary/>
     </div>
   )
