@@ -79,7 +79,7 @@ const Transaction = ({filteredTransactions, selectedPeriod, setSelectedPeriod,  
                 </div>
                 <div className="flex flex-col items-start  gap-[9px]">
                   {item?.metadata?.product_name && (
-                    <h3 className="font-[500] text-[16px] leading-[24px] text-primary">
+                    <h3 className="font-[500] text-[16px] leading-[24px] text-primary text-nowrap">
                       {item?.metadata?.product_name}
                     </h3>
                   )}

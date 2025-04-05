@@ -270,8 +270,8 @@ const FilterModal = ({ closeModal, filterPeriods, selectedPeriod, setSelectedPer
                                     Date Range
                                 </label>
                                 <div className="flex gap-[6px] items-center w-full">
-                                    <DateInput onDateChange={setStartDate} selectedDate={startDate} />
-                                    <DateInput onDateChange={setEndDate} selectedDate={endDate} />
+                                    <div className="w-[50%]"><DateInput onDateChange={setStartDate} selectedDate={startDate} /></div>
+                                    <div className="w-[50%]"><DateInput onDateChange={setEndDate} selectedDate={endDate} /></div>
                                 </div>
                             </div>
                             <div className="flex flex-col gap-[12px] w-full">
