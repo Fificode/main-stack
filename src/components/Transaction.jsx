@@ -8,7 +8,7 @@ import { fetchTransactions } from "../store/transactionSlice";
 import FilterModal from "./FilterModal";
 import { MdReceiptLong } from "react-icons/md";
 
-const Transaction = ({filteredTransactions, selectedPeriod, setSelectedPeriod}) => {
+const Transaction = ({filteredTransactions, selectedPeriod, setSelectedPeriod,  setDateRange, setTransactionType, setTransactionStatuses, clearFilters}) => {
   const dispatch = useDispatch();
  const filterPeriods = [
     { id: "all", period: "All" },
@@ -135,6 +135,10 @@ const Transaction = ({filteredTransactions, selectedPeriod, setSelectedPeriod}) 
           closeModal={() => setFilterModalOpen(false)}
           selectedPeriod={selectedPeriod}
           setSelectedPeriod={setSelectedPeriod}
+          setDateRange={setDateRange}
+          setTransactionStatuses={setTransactionStatuses}
+          setTransactionType={setTransactionType}
+          clearFilters={clearFilters}
         />
       )}
     </>
